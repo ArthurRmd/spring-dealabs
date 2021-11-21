@@ -1,10 +1,8 @@
 package com.example.dealabs.dto;
 
-import com.example.dealabs.dao.DealDAO;
-import com.example.dealabs.DealDO;
+import com.example.dealabs.database.repository.DealDO;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class DealDTO {
 
@@ -13,23 +11,63 @@ public class DealDTO {
     public String author;
     public String shopName;
     public String imageUrl;
+    public float temperature;
     public Calendar createdAt;
 
-    public DealDTO(DealDO dealDO){
-        this.id = dealDO.getId();
-        this.title = dealDO.getTitle();
-        this.author = dealDO.getCreator();
-        this.shopName = dealDO.getShopName();
-        this.imageUrl = dealDO.getImgUrl();
-        this.createdAt = dealDO.getDate();
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public DealDTO(int id, String title, String author, String shopName, String imageUrl, Calendar createdAt) {
-        this.id = id;
+    public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public void setShopName(String shopName) {
         this.shopName = shopName;
+    }
+
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public void setTemperature(float temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setCreatedAt(Calendar createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public Calendar getCreatedAt() {
+        return createdAt;
     }
 }

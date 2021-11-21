@@ -1,7 +1,8 @@
-package com.example.dealabs;
+package com.example.dealabs.database.repository;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name="tbl_deal")
@@ -30,12 +31,6 @@ public class DealDO {
     @Column(name="promo_code")
     private String promoCode;
 
-    @Column(name="temperature")
-    private Float temperature;
-
-    @Column(name="creator")
-    private String creator;
-
     @Column(name="date")
     private Calendar date;
 
@@ -45,24 +40,23 @@ public class DealDO {
     @Column(name="description")
     private String description;
 
-    public DealDO(Integer id, String title, String shopName, String shopLink, Float priceOld, Float priceNew, String promoCode, Float temperature, String creator, Calendar date, String imgUrl, String description) {
-        this.id = id;
-        this.title = title;
-        this.shopName = shopName;
-        this.shopLink = shopLink;
-        this.priceOld = priceOld;
-        this.priceNew = priceNew;
-        this.promoCode = promoCode;
-        this.temperature = temperature;
-        this.creator = creator;
-        this.date = date;
-        this.imgUrl = imgUrl;
-        this.description = description;
+    @OneToMany(targetEntity = TemperatureDO.class,cascade = CascadeType.ALL)
+    @JoinColumn(name ="deal_id",referencedColumnName = "id")
+    private List<TemperatureDO> temperatures;
+
+    @OneToOne(cascade={CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserDO user;
+
+    public DealDO() {}
+
+    public String getCreator(){
+        return user.getFullName();
     }
 
-    public DealDO() {
 
-    }
+    ////
+
 
     public Integer getId() {
         return id;
@@ -120,22 +114,6 @@ public class DealDO {
         this.promoCode = promoCode;
     }
 
-    public Float getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(Float temperature) {
-        this.temperature = temperature;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
     public Calendar getDate() {
         return date;
     }
@@ -158,5 +136,29 @@ public class DealDO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<TemperatureDO> getTemperatures() {
+        return temperatures;
+    }
+
+    public float getTemperature() {
+        float temperature = 0;
+        for(TemperatureDO temp :temperatures){
+            temperature += temp.getValue();
+        }
+        return temperature;
+    }
+
+    public void setTemperatures(List<TemperatureDO> temperatures) {
+        this.temperatures = temperatures;
+    }
+
+    public UserDO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDO user) {
+        this.user = user;
     }
 }

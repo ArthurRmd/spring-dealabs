@@ -1,11 +1,11 @@
 package com.example.dealabs.controllers;
 
-import com.example.dealabs.DealDO;
 import com.example.dealabs.dto.DealDTO;
 import com.example.dealabs.dto.DetailDealDTO;
 import com.example.dealabs.services.DealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,12 +25,6 @@ public class DealController {
         return dealsDTO;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = DealController.baseUrl)
-    public String store(@RequestBody DealDO dealDO){
-        dealService.addDeal(dealDO);
-        return "deal added";
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = DealController.baseUrl + "/{id}")
     public DetailDealDTO getById(@PathVariable int id){
         try {
@@ -38,9 +32,21 @@ public class DealController {
             return dealsDTO;
         } catch (IllegalStateException illegalStateException){
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
+                    HttpStatus.NOT_FOUND
             );
         }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = DealController.baseUrl)
+    public ResponseEntity<Object> store(@RequestBody DealDTO dealDTO){
+
+        try {
+            dealService.addDeal(dealDTO);
+        } catch (Exception exception){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.status(201).build();
     }
 
 
