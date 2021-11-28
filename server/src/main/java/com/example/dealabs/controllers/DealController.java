@@ -19,12 +19,14 @@ public class DealController {
     @Autowired
     private DealService dealService;
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @RequestMapping(method = RequestMethod.GET, value = DealController.baseUrl)
     public List<DealDTO> getAll(){
         List<DealDTO>  dealsDTO = dealService.getDealDTO();
         return dealsDTO;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @RequestMapping(method = RequestMethod.GET, value = DealController.baseUrl + "/{id}")
     public DetailDealDTO getById(@PathVariable int id){
         try {
@@ -37,11 +39,12 @@ public class DealController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @RequestMapping(method = RequestMethod.POST, value = DealController.baseUrl)
-    public ResponseEntity<Object> store(@RequestBody DealDTO dealDTO){
+    public ResponseEntity<Object> store(@RequestBody DetailDealDTO detailDealDTO){
 
         try {
-            dealService.addDeal(dealDTO);
+            dealService.addDeal(detailDealDTO);
         } catch (Exception exception){
             return ResponseEntity.notFound().build();
         }

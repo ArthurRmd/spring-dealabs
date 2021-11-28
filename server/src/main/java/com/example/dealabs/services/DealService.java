@@ -31,6 +31,7 @@ public class DealService {
         dealDTO.setShopName(dealDO.getShopName());
         dealDTO.setImageUrl(dealDO.getImgUrl());
         dealDTO.setCreatedAt(dealDO.getDate());
+        dealDTO.setDescription(dealDO.getDescription());
         return dealDTO;
     }
 
@@ -54,13 +55,25 @@ public class DealService {
     }
 
 
-    public void addDeal(DealDTO dealDTO) throws Exception {
+    public void addDeal(DetailDealDTO detailDealDTO) throws Exception {
+
+
         DealDO dealDO = new DealDO();
-        UserDO user = userDAO.findByFirstName(dealDTO.getAuthor());
+        UserDO user = userDAO.findByFirstName(detailDealDTO.author);
 
         if (user == null){
             throw new Exception("user not found");
         }
+
+        dealDO.setDate(detailDealDTO.createdAt);
+        dealDO.setDescription(detailDealDTO.description);
+        dealDO.setImgUrl(detailDealDTO.imageUrl);
+        dealDO.setPriceNew(detailDealDTO.newPrice);
+        dealDO.setPriceOld(detailDealDTO.oldPrice);
+        dealDO.setPromoCode(detailDealDTO.promoCode);
+        dealDO.setShopLink(detailDealDTO.shopLink);
+        dealDO.setShopName(detailDealDTO.shopName);
+        dealDO.setTitle(detailDealDTO.title);
 
         dealDO.setUser(user);
         dealDAO.save(dealDO);

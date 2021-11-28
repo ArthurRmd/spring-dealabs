@@ -51,7 +51,8 @@ public class DealDO {
     public DealDO() {}
 
     public String getCreator(){
-        return user.getFullName();
+        return "autheur temp";
+//        return user.getFullName();
     }
 
 

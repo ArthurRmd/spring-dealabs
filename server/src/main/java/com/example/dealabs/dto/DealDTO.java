@@ -11,6 +11,7 @@ public class DealDTO {
     public String author;
     public String shopName;
     public String imageUrl;
+    public String description;
     public float temperature;
     public Calendar createdAt;
 
@@ -70,4 +71,14 @@ public class DealDTO {
     public Calendar getCreatedAt() {
         return createdAt;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 }
