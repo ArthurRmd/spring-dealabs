@@ -2,16 +2,6 @@
 
   <div class="container">
 
-<!--    {-->
-<!--       "id": 2,-->
-<!--       "title": "Promo de ouf",-->
-<!--       "author": "",-->
-<!--       "shopName": "amazon",-->
-<!--       "imageUrl": "https://via.placeholder.com/150",-->
-<!--       "temperature": -1.0,-->
-<!--       "createdAt": "2021-11-10T14:07:40.000+00:00"-->
-<!--    },-->
-
     <div v-for="deal in deals" :key="deal.id">
       <div class="card" @click="dealRedirection(deal.id)">
         <div class="card-content">
@@ -24,6 +14,8 @@
               <h1>Title : {{ deal.title}}</h1>
               <h1>Author : {{deal.author}}</h1>
               <h1>Owner : {{ deal.shopName}}</h1>
+              <button class="button is-small mr-2 mt-2" @click="addTemp">+1</button>
+              <button class="button is-small mt-2">-1</button>
             </div>
             <div class="column is-2">
               <h1> {{ convertDate(deal.createdAt)}}</h1>
@@ -61,7 +53,11 @@ export default {
       return mm + '/' + dd + '/' + yyyy;
     },
     dealRedirection(dealId){
+      console.log("redirection")
       this.$router.push({ name: 'deal', params: { id: dealId } })
+    },
+    addTemp() {
+      console.log("add temp");
     }
 
   }

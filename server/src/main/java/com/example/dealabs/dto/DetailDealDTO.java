@@ -8,13 +8,13 @@ public class DetailDealDTO {
 
     public int id;
     public String title;
-    public float temperature;
     public String author;
     public String shopName;
     public String shopLink;
     public String imageUrl;
-    public String promoCode;
     public String description;
+    public float temperature;
+    public String promoCode;
     public float newPrice;
     public float oldPrice;
     public Calendar createdAt;

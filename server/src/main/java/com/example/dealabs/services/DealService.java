@@ -74,7 +74,6 @@ public class DealService {
         dealDO.setShopLink(detailDealDTO.shopLink);
         dealDO.setShopName(detailDealDTO.shopName);
         dealDO.setTitle(detailDealDTO.title);
-
         dealDO.setUser(user);
         dealDAO.save(dealDO);
     }

@@ -4,6 +4,8 @@ import Home from "../views/Home";
 import Deal from "../views/Deal";
 import NotFound from "../views/NotFound";
 import CreateDeal from "../views/CreateDeal";
+import Login from "../views/Login";
+import SignUp from "../views/SignUp";
 
 const routes = [
     {
@@ -20,6 +22,16 @@ const routes = [
         name: 'create-deal',
         path: '/create-deal',
         component: CreateDeal,
+    },
+    {
+        name: 'login',
+        path: '/login',
+        component: Login,
+    },
+    {
+        name: 'sign-up',
+        path: '/sign-up',
+        component: SignUp,
     },
     {
         name: 'not-found',

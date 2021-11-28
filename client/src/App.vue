@@ -17,12 +17,23 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-light">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">
-                Log in
-              </a>
+              <template v-if="user.connected">
+                <button  class="button is-light">
+                  <strong>User: {{ user.pseudo }}</strong>
+                </button>
+                <button to="/sign-up" class="button is-light" @click="disconnect">
+                  <strong>Disconnect</strong>
+                </button>
+              </template>
+              <template v-else>
+                <router-link to="/sign-up" class="button is-light">
+                  <strong>Sign up</strong>
+                </router-link>
+                <router-link to="/login" class="button is-light">
+                  Log in
+                </router-link>
+              </template>
+
               <router-link to="/create-deal" class="button is-light">
                 Create deal
               </router-link>
@@ -31,7 +42,7 @@
         </div>
       </div>
     </nav>
-      <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -40,9 +51,17 @@
 
 export default {
   name: 'App',
-  // components: {
-  //   HelloWorld
-  // }
+  computed: {
+    user() {
+      console.log(this.$store.getters.getUser)
+      return this.$store.getters.getUser
+    }
+  },
+  methods: {
+    disconnect() {
+      this.$store.commit('disconnectUser')
+    }
+  }
 }
 </script>
 
