@@ -1,6 +1,7 @@
 package com.example.dealabs.database.repository;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name="tbl_user")
@@ -71,4 +72,5 @@ public class UserDO {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

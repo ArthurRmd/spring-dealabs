@@ -5,24 +5,7 @@
     <div v-for="deal in deals" :key="deal.id">
       <div class="card" @click="dealRedirection(deal.id)">
         <div class="card-content">
-          <div class="columns">
-            <div class="column is-3">
-              <img :src="deal.imageUrl" alt="">
-            </div>
-            <div class="column has-text-left">
-              <h1>Temerature : {{ deal.temperature}}</h1>
-              <h1>Title : {{ deal.title}}</h1>
-              <h1>Author : {{deal.author}}</h1>
-              <h1>Owner : {{ deal.shopName}}</h1>
-              <button class="button is-small mr-2 mt-2" @click="addTemp">+1</button>
-              <button class="button is-small mt-2">-1</button>
-            </div>
-            <div class="column is-2">
-              <h1> {{ convertDate(deal.createdAt)}}</h1>
-              <button class="button is-info btn-show">Show</button>
-            </div>
-          </div>
-
+          <DealPrincipalData :convert-date="convertDate(deal.createdAt)" :deal="deal"/>
         </div>
       </div>
     </div>
@@ -32,9 +15,11 @@
 
 <script>
 import axios from "axios";
+import DealPrincipalData from "../components/DealPrincipalData";
 
 export default {
   name: "Deals",
+  components: {DealPrincipalData},
   async mounted() {
     const response = await axios.get("http://127.0.0.1:8080/deal")
     this.deals = response.data
@@ -53,12 +38,8 @@ export default {
       return mm + '/' + dd + '/' + yyyy;
     },
     dealRedirection(dealId){
-      console.log("redirection")
       this.$router.push({ name: 'deal', params: { id: dealId } })
     },
-    addTemp() {
-      console.log("add temp");
-    }
 
   }
 }
@@ -76,8 +57,4 @@ export default {
     cursor: pointer;
   }
 
-  .btn-show {
-    margin-top: 90px;
-    /*margin-left: 200px;*/
-  }
 </style>

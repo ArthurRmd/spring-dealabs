@@ -20,7 +20,6 @@
           </div>
 
 
-
           <div class="field is-grouped is-grouped-centered">
             <p class="control">
               <button class="button is-primary" @click="login">
@@ -43,6 +42,8 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
   name: "Login",
   data() {
@@ -51,8 +52,29 @@ export default {
       password: '',
     }
   },
-  methods : {
-    login(){
+  methods: {
+    login() {
+
+      const LoginRequestDTO = {
+        'pseudo': this.pseudo,
+        'password': this.password
+      }
+
+      console.log(LoginRequestDTO)
+
+      axios.post('http://127.0.0.1:8080/public/login', LoginRequestDTO)
+          .then(
+              response => {
+                localStorage.setItem('auth', btoa(LoginRequestDTO.pseudo) + ':' + LoginRequestDTO.password)
+                this.success(response)
+                console.log(response);
+              }, error => {btoa
+                this.failed(error)
+              }
+          )
+
+
+
       this.$store.commit('setUser', {
             connected: true,
             pseudo: "Adrien",
@@ -61,6 +83,8 @@ export default {
             token: "",
           }
       )
+      //this.$router.push({name: 'home'})
+
     }
   }
 }

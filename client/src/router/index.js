@@ -1,11 +1,11 @@
 
 import { createRouter, createWebHistory} from "vue-router"
 import Home from "../views/Home";
-import Deal from "../views/Deal";
+import Deal from "../views/deal/Deal";
 import NotFound from "../views/NotFound";
-import CreateDeal from "../views/CreateDeal";
-import Login from "../views/Login";
-import SignUp from "../views/SignUp";
+import CreateDeal from "../views/deal/CreateDeal";
+import Login from "../views/account/Login";
+import SignUp from "../views/account/SignUp";
 
 const routes = [
     {

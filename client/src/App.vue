@@ -34,9 +34,9 @@
                 </router-link>
               </template>
 
-              <router-link to="/create-deal" class="button is-light">
+              <button @click="createDeal" class="button is-light">
                 Create deal
-              </router-link>
+              </button>
             </div>
           </div>
         </div>
@@ -47,19 +47,31 @@
 </template>
 
 <script>
-// import HelloWorld from './../components/HelloWorld.vue'
+
+import Swal from "sweetalert2";
 
 export default {
   name: 'App',
   computed: {
     user() {
-      console.log(this.$store.getters.getUser)
       return this.$store.getters.getUser
     }
   },
   methods: {
     disconnect() {
       this.$store.commit('disconnectUser')
+    },
+    createDeal() {
+      if(!this.user.connected) {
+        Swal.fire(
+            'You are not connected',
+            'Please connect with your account',
+            'error'
+        )
+        return;
+      }
+      this.$router.push({ name: 'create-deal' })
+
     }
   }
 }
