@@ -29,7 +29,7 @@ public class DealabsAuthenticationProvider implements AuthenticationProvider {
 
         final UserDO utilisateurEntity = repo.findByFirstName(userName);
         // TODO : Décommentez passwordBO.matches si le mot de passe est crypté.
-        if (utilisateurEntity != null /*&& passwordBO.matches(password, utilisateurEntity.getPassword())*/) {
+        if (utilisateurEntity != null && utilisateurEntity.getPassword().equals(password)) {
 
             // Création d'un bean perso pour ajouter des valeurs.
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();

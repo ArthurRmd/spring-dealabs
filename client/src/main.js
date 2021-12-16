@@ -7,7 +7,8 @@ import axios from "axios";
 
 axios.interceptors.request.use(async function (config) {
     if(!config.url.includes('public')) {
-        config.headers['Authorization'] = 'Basic' + localStorage.getItem('auth');
+        console.log('Basic' + localStorage.getItem('auth'))
+        config.headers['Authorization'] = 'Basic ' + localStorage.getItem('auth');
     }
     return config
 }, function(error){

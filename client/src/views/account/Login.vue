@@ -43,13 +43,14 @@
 <script>
 
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   name: "Login",
   data() {
     return {
-      pseudo: '',
-      password: '',
+      pseudo: 'Arthur',
+      password: 'password',
     }
   },
   methods: {
@@ -62,28 +63,29 @@ export default {
 
       console.log(LoginRequestDTO)
 
-      axios.post('http://127.0.0.1:8080/public/login', LoginRequestDTO)
+      axios.post('http://localhost:8080/public/login', LoginRequestDTO)
           .then(
               response => {
-                localStorage.setItem('auth', btoa(LoginRequestDTO.pseudo) + ':' + LoginRequestDTO.password)
-                this.success(response)
-                console.log(response);
-              }, error => {btoa
-                this.failed(error)
+                localStorage.setItem('auth', btoa(LoginRequestDTO.pseudo + ':' + LoginRequestDTO.password))
+                this.$store.commit('setUser', {
+                      connected: true,
+                      pseudo: response.data.pseudo,
+                      firstname: "",
+                      name: "",
+                      token: "",
+                    }
+                )
+                this.$router.push({name: 'home'})
+
+              }, () => {
+                Swal.fire(
+                    'Wrong login',
+                    'Please connect with your account',
+                    'error'
+                )
               }
           )
 
-
-
-      this.$store.commit('setUser', {
-            connected: true,
-            pseudo: "Adrien",
-            firstname: "",
-            name: "",
-            token: "",
-          }
-      )
-      //this.$router.push({name: 'home'})
 
     }
   }

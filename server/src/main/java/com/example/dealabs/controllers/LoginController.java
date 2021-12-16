@@ -39,7 +39,7 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST,value = "/public/login")
     public UserDTO login(@RequestBody final LoginRequestDTO request) {
 
-        System.out.println("blaaaa");
+        System.out.println("route => login");
         // Controle des params obligatoires
         if (StringUtils.isEmpty(request.getPseudo())) {
             throw new BadCredentialsException("User/pwd must not be emtpy");
@@ -51,11 +51,12 @@ public class LoginController {
             throw new BadCredentialsException("User/pwd incorrect");
         }
 
+
         final DealabsSpringUser utilisateur = (DealabsSpringUser) authentication.getPrincipal();
         logger.debug("New user logged : " + utilisateur.getUsername());
 
         // TODO : Ajouter les informations n�cessaires au DTO pour retour au front.
-        return new UserDTO("test", "efer");
+        return new UserDTO(request.getPseudo(), request.getPassword());
     }
 
 }
